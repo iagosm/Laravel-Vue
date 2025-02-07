@@ -1,4 +1,11 @@
-<script></script>
+<script>
+  import { Link } from '@inertiajs/vue3';
+  export default {
+    components: {
+      Link
+    }
+  }
+</script>
 <template>
   <div class="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800">
     <nav class="border-b border-gray-700 bg-gray-900/50 backdrop-blur-sm">
@@ -10,8 +17,12 @@
             </div>
           </div>
           <div class="flex items-center space-x-4">
-            <button class="px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:text-white">Login</button>
-            <button class="px-4 py-2 text-sm font-medium text-white transition-all bg-indigo-600 rounded-md hover:bg-indigo-700">Começar Agora</button>
+            <Link :href="route('login')">
+              <button class="px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:text-white">Login</button>
+            </Link>
+            <Link :href="route('register')">
+              <button class="px-4 py-2 text-sm font-medium text-white transition-all bg-indigo-600 rounded-md hover:bg-indigo-700">Começar Agora</button>
+            </Link>
           </div>
         </div>
       </div>
