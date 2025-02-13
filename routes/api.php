@@ -10,3 +10,5 @@ Route::get('/user', function (Request $request) {
 
 Route::get('/usuarios', [Usuarios::class, 'view'])->name('usuarios');
 Route::post('/usuarios', [Usuarios::class, 'create'])->name('usuarios.create');
+Route::put('/usuarios/{usuario}', [Usuarios::class, 'update'])->name('usuarios.create');
+Route::delete('/usuarios/{usuario}', [Usuarios::class, 'destroy'])->name('usuarios.create');
