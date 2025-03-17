@@ -13,6 +13,7 @@ class Usuario extends Model
         'nome',
         'email',
         'descricao',
-        'telefone'
+        'telefone',
+        'user_id'
     ];
 }

@@ -8,9 +8,9 @@ use App\Models\Usuario;
 
 class Usuarios extends Controller
 {
-    public function view()
+    public function view(Request $request)
     {
-        $usuarios = Usuario::all();
+        $usuarios = Usuario::where('user_id', $request->user_id)->get();
         return response()->json($usuarios);
     }
 
@@ -20,8 +20,9 @@ class Usuarios extends Controller
             $validateRequest = $request->validate([
                 'nome' => 'required|string|min:5',
                 'email' => 'required|email|unique:usuarios,email',
-                'telefone' => 'required|string|min:7',
-                'descricao' => 'nullable|string|'
+                'telefone' => 'required|string',
+                'descricao' => 'nullable|string|',
+                'user_id' => 'required'
             ]);
             Usuario::create($validateRequest);
             return response()->json(['message' => 'Usuário cadastrado com sucesso'], 201);
@@ -39,8 +40,9 @@ class Usuarios extends Controller
             $validateRequest = $request->validate([
                 'nome' => 'required|string|min:5',
                 'email' => 'required|email|unique:usuarios,email,' . $id,
-                'telefone' => 'required|string|min:7',
-                'descricao' => 'nullable|string|'
+                'telefone' => 'required|string',
+                'descricao' => 'nullable|string',
+                'user_id' => 'required'
             ]);
             $usuario->update($validateRequest);
             return response()->json(['message' => 'Usuário atualizado com sucesso'], 201);

@@ -16,7 +16,9 @@ return new class extends Migration
             $table->string('nome');
             $table->string('email', 191)->unique();
             $table->string('descricao')->nullable();
-            $table->integer('telefone');
+            $table->bigInteger('telefone');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); // ligação com users e será um deleção em cascata
             $table->rememberToken();
             $table->timestamps();
         });
