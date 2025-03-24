@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
+use Inertia\Inertia; // necessario para renderizar pagina dentro do vue
 
 class Usuarios extends Controller
 {
@@ -31,6 +32,15 @@ class Usuarios extends Controller
                 'erros' => $error->errors()
             ]);
         }
+    }
+
+    public function perfilUsuario() {
+        return Inertia::render('Usuario/Perfil');
+    }
+
+    public function viewUsuario($id) {
+        $usuario = Usuario::where('id', $id)->get();
+        return response()->json($usuario);
     }
 
     public function update(Request $request, $id)

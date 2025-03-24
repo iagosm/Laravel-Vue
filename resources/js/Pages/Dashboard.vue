@@ -1,7 +1,7 @@
 <script setup>
     import { ref, onMounted, watch, computed } from 'vue';
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-    import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
+    import { Head, Link, useForm, usePage, router } from '@inertiajs/vue3';
     import axios from 'axios';
     import { vMaska} from 'maska/vue'
 
@@ -51,6 +51,11 @@
         isModalOpen.value = false;
     }
 
+    const usuarioPerfil = (id) => {
+        sessionStorage.setItem('idPerfil', id);
+        router.visit(route('perfil'));
+    }
+
     onMounted(() => {
         buscarUsuarios();
     })
@@ -88,7 +93,9 @@
                             </div>
                             <div>
                                 <button class="p-2 text-gray-500 hover:text-gray-700 focus:outline-none">
-                                    Edit
+                                    <Link @click.prevent="usuarioPerfil(usuario.id)">
+                                        Edit
+                                    </Link>
                                 </button>
                                 <button class="p-2 text-gray-500 hover:text-gray-700 focus:outline-none">
                                     Excluir
