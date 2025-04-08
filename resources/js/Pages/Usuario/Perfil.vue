@@ -5,6 +5,7 @@
     import axios from 'axios';
     import { vMaska} from 'maska/vue'
     import { PlusCircle, FileText, Paperclip, Trash2, Edit, Save, X, Download } from 'lucide-vue-next';
+    import Swal from 'sweetalert2';
 
     const user = computed(() => usePage().props.auth.user);
     const props = defineProps({
@@ -34,6 +35,22 @@
             usuario.value = response.data[0]
         } catch (error) {
             console.error("Erro ao buscar usuario: ", error)
+        }
+    }
+
+    const editarUsuario = async () => {
+        usuario.value.telefone = usuario.value.telefone.replace(/\D/g, '');
+        try{
+            const response = await axios.put(`api/usuarios/${usuario.value.id}`, {...usuario.value});
+            await Swal.fire({
+                title: 'Sucesso',
+                text: 'Usuário atualizado',
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            })
+        } catch(error) {
+            alert('Erro ao atualizar')
+            console.log('error', error)
         }
     }
 
@@ -73,11 +90,11 @@
                                 <h1 class="text-2xl font-bold text-gray-800">{{ usuario.nome }}</h1>
                             </div>
                             <div class="mt-4 md:mt-0">
-                                <Link :href="`/editar-usuario/${usuario.id}`" class="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-white uppercase transition bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus:border-blue-800 focus:ring ring-blue-300 disabled:opacity-25">
+                                <p @click="editarUsuario()" class="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-white uppercase transition bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus:border-blue-800 focus:ring ring-blue-300 disabled:opacity-25">
                                     <!-- Função de editar dados do usuario -->
                                     <Edit class="w-4 h-4 mr-2" />
                                     Editar Usuario
-                                </Link>
+                                </p>
                             </div>
                         </div>
                     </div>
